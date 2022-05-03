@@ -1,7 +1,7 @@
-#include <iostream>
-
+#include "Driver.h"
 
 int main()
 {
-  std::cout << "Hello world \n";
+    Driver driver("data.csv", SIZES[3]);
 }
+
