@@ -12,13 +12,11 @@ public:
     List();
     void add(Movie movie);
     void printList();
-
+    void qsort();
     int getSize() const;
     Movie operator[](int index);
-    void sort();
 };
 
-void quickSort(Node** head);
-Node* getTail(Node* current);
+void quickSort(Node** headRef);
 Node* quickSortRecur(Node* head, Node* end);
-Node* partition(Node* head, Node* end, Node** newHead, Node** newEnd);
+Node* getTail(Node* cur);
