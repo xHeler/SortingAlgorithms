@@ -13,6 +13,7 @@ public:
     void add(Movie movie);
     void printList();
     void qsort();
+    void msort();
     int getSize() const;
     Movie operator[](int index);
 };
@@ -20,3 +21,7 @@ public:
 void quickSort(Node** headRef);
 Node* quickSortRecur(Node* head, Node* end);
 Node* getTail(Node* cur);
+
+Node* SortedMerge(Node* a, Node* b);
+void FrontBackSplit(Node* source,Node** frontRef, Node** backRef);
+void MergeSort(Node** headRef);

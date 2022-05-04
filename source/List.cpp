@@ -49,6 +49,10 @@ void List::qsort() {
     quickSort(&head);
 }
 
+void List::msort() {
+    MergeSort(&head);
+}
+
 Node* getTail(Node* cur)
 {
     while (cur != NULL && cur->getNext() != NULL)
@@ -115,4 +119,59 @@ void quickSort(Node** headRef)
     (*headRef)
             = quickSortRecur(*headRef, getTail(*headRef));
     return;
+}
+
+void MergeSort(Node** headRef)
+{
+    Node* head = *headRef;
+    Node* a;
+    Node* b;
+    if ((head == NULL) || (head->getNext() == NULL)) {
+        return;
+    }
+
+    FrontBackSplit(head, &a, &b);
+    MergeSort(&a);
+    MergeSort(&b);
+
+    *headRef = SortedMerge(a, b);
+}
+
+Node* SortedMerge(Node* a, Node* b)
+{
+    Node* result = NULL;
+    if (a == NULL)
+        return (b);
+    else if (b == NULL)
+        return (a);
+    if (a->getMovie().getRating() <= b->getMovie().getRating()) {
+        result = a;
+        result->setNext(SortedMerge(a->getNext(), b));
+    }
+    else {
+        result = b;
+        result->setNext(SortedMerge(a, b->getNext()));
+    }
+    return (result);
+}
+
+void FrontBackSplit(Node* source,
+                    Node** frontRef, Node** backRef)
+{
+    Node* fast;
+    Node* slow;
+    slow = source;
+    fast = source->getNext();
+
+    while (fast != NULL) {
+        fast = fast->getNext();
+        if (fast != NULL) {
+            slow = slow->getNext();
+            fast = fast->getNext();
+        }
+    }
+
+    *frontRef = source;
+    *backRef = slow->getNext();
+    slow->setNext(NULL);
 }
