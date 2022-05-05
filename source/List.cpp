@@ -35,7 +35,7 @@ int List::getSize() const {
     return size;
 }
 
-Movie List::operator[](int index) {
+Movie List::operator[](const int index) {
     int i = 0;
     Node* tmp = head;
     while (tmp != nullptr && i != index) {
@@ -52,6 +52,32 @@ void List::qsort() {
 void List::msort() {
     MergeSort(&head);
 }
+
+void List::ssort() {
+    int n = size;
+    Movie temp;
+    for (int interval = n / 2; interval > 0; interval /= 2) {
+        for (int i = interval; i < n; i += 1) {
+            temp = (*this)[i];
+            int j;
+            for (j = i; j >= interval && (*this)[j - interval].getRating() > temp.getRating(); j -= interval) {
+                setMovieAtIndex((*this)[j-interval], j);
+            }
+            setMovieAtIndex(temp, j);
+        }
+    }
+}
+
+void List::setMovieAtIndex(Movie m, int index) {
+    int i = 0;
+    Node* tmp = head;
+    while (tmp != nullptr && i != index) {
+        tmp = tmp->getNext();
+        i++;
+    }
+    tmp->setMovie(m);
+}
+
 
 Node* getTail(Node* cur)
 {
